@@ -38,8 +38,9 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
 
-AGENTS.md
+# ignore Claude and Agents markdown files
 CLAUDE.md
+AGENTS.md
+next-env.d.ts
 

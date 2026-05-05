@@ -1,4 +1,6 @@
-module.exports = {
+import type { Config } from "jest";
+
+const config: Config = {
   preset: "ts-jest",
   testEnvironment: "jsdom",
   moduleNameMapper: {
@@ -6,5 +8,7 @@ module.exports = {
   },
   collectCoverage: true,
   coverageDirectory: "coverage",
-  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
+  setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
 };
+
+export default config;
