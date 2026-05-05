@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./**/.env)",
+      "Read(./**/.env.*)",
+      "Edit(./.env)",
+      "Edit(./.env.*)",
+      "Edit(./**/.env)",
+      "Edit(./**/.env.*)",
+      "Write(./.env)",
+      "Write(./.env.*)",
+      "Write(./**/.env)",
+      "Write(./**/.env.*)",
+      "Bash(cat:*.env*)",
+      "Bash(cat:*/.env*)",
+      "Read(.env)",
+    "Read(.env.*)",
+    "Read(**/.env)",
+    "Read(**/.env.*)",
+    "Edit(.env)",
+    "Edit(.env.*)",
+    "Edit(**/.env)",
+    "Edit(**/.env.*)",
+    "Write(.env)",
+    "Write(.env.*)",
+    "Write(**/.env)",
+    "Write(**/.env.*)"
+    ]
+  }
+}
