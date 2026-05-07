@@ -7,8 +7,12 @@ interface Param {
 }
 
 const getClient = async () => {
-  const draft = await draftMode();
-  return draft.isEnabled ? previewClient : client;
+  try {
+    const draft = await draftMode();
+    return draft.isEnabled ? previewClient : client;
+  } catch {
+    return client;
+  }
 };
 
 export const getGlobalStory = async <T extends EntrySkeletonType>(

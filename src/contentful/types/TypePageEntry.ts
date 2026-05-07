@@ -9,17 +9,17 @@ import type {
 export interface TypePageEntryFields {
   title?: EntryFieldTypes.Symbol;
   slug: EntryFieldTypes.Symbol;
-  heroBanner?: EntrySkeletonType<
-    Record<string, EntryFieldTypes.Object>,
-    "heroBanner"
-  > | null;
-  description?: EntrySkeletonType<
-    Record<string, EntryFieldTypes.Object>,
-    "description"
-  > | null;
-  body?: Array<
-    EntrySkeletonType<Record<string, EntryFieldTypes.Object>, "body">
-  > | null;
+  heroBanner?: EntryFieldTypes.EntryLink<
+    EntrySkeletonType<Record<string, EntryFieldTypes.Object>, "heroBanner">
+  >;
+  description?: EntryFieldTypes.EntryLink<
+    EntrySkeletonType<Record<string, EntryFieldTypes.Object>, "description">
+  >;
+  body?: EntryFieldTypes.Array<
+    EntryFieldTypes.EntryLink<
+      EntrySkeletonType<Record<string, EntryFieldTypes.Object>, "body">
+    >
+  >;
 }
 
 export type TypePageEntrySkeleton = EntrySkeletonType<

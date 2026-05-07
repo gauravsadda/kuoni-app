@@ -2,18 +2,33 @@
 
 import styled from "@emotion/styled";
 import Link from "next/link";
-import type { ReactNode } from "react";
+import type { Entry } from "contentful";
+import Component from "@/lib/Components";
+import { useContentfulLiveUpdates } from "@contentful/live-preview/react";
+import { TypePageEntrySkeleton } from "@/contentful/types/TypePageEntry";
 
 type PageShellProps = {
-  children: ReactNode;
+  story: Entry<TypePageEntrySkeleton, "WITHOUT_UNRESOLVABLE_LINKS">;
 };
 
-const PageShell = ({ children }: PageShellProps) => {
+const PageShell = ({ story }: PageShellProps) => {
+  const updatedEntry = useContentfulLiveUpdates(story);
+  const title = updatedEntry?.fields?.title || "Page title";
+  const body = updatedEntry?.fields?.body || [];
+  const heroBanner = updatedEntry?.fields.heroBanner;
+  const description = updatedEntry?.fields.description;
   return (
     <Main>
       <Inner>
         <BackLink href="/">← Pages</BackLink>
-        <Stack>{children}</Stack>
+        <Stack>
+          {title && <h1 className="text-4xl font-bold mb-6">{title}</h1>}
+          {heroBanner && <Component entry={heroBanner} />}
+          {description && <Component entry={description} />}
+          {body?.map((content, index) =>
+            content ? <Component key={index} entry={content} /> : null,
+          )}
+        </Stack>
       </Inner>
     </Main>
   );

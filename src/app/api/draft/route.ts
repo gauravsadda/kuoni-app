@@ -1,5 +1,6 @@
-import { draftMode } from "next/headers";
+import { cookies, draftMode } from "next/headers";
 import { redirect } from "next/navigation";
+
 const { CONTENTFUL_PREVIEW_SECRET } = process.env;
 
 export async function GET(request: Request) {
@@ -11,5 +12,22 @@ export async function GET(request: Request) {
   const draft = await draftMode();
   draft.enable();
 
-  redirect(searchParams.get("redirect") || "/");
+  const cookieStore = await cookies();
+  const bypass = cookieStore.get("__prerender_bypass");
+  if (bypass) {
+    cookieStore.set({
+      name: "__prerender_bypass",
+      value: bypass.value,
+      httpOnly: true,
+      path: "/",
+      sameSite: "none",
+      secure: true,
+    });
+  }
+
+  const target = searchParams.get("redirect") || "/";
+  const safeTarget =
+    target.startsWith("/") && !target.startsWith("//") ? target : "/";
+
+  redirect(safeTarget);
 }

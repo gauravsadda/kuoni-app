@@ -17,12 +17,12 @@ const ComponentsList = presentation as unknown as Record<
 >;
 
 type ComponentsProps = {
-  entry: Entry<EntrySkeletonType, undefined, string>;
+  entry: Entry<EntrySkeletonType>;
   children?: ReactNode;
 };
 
 const Components = ({ entry, children }: ComponentsProps) => {
-  const updatedEntry = entry; //useContentfulLiveUpdates(entry);
+  const updatedEntry = useContentfulLiveUpdates(entry);
   const contentTypeId = updatedEntry.sys?.contentType?.sys?.id;
 
   if (contentTypeId && ComponentsList[contentTypeId]) {
