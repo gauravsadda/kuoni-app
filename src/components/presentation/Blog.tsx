@@ -1,6 +1,9 @@
+"use client";
+
 import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
 import { Asset, Entry, EntrySkeletonType } from "contentful";
+import { useContentfulInspectorMode } from "@contentful/live-preview/react";
 import RichText from "@/components/common/RichText";
 import type { Document as RichTextDocument } from "@contentful/rich-text-types";
 import { parseContentfulContentImage } from "@/contentful/contentImage";
@@ -8,6 +11,7 @@ import Image from "@/components/common/Image";
 import Components from "@/lib/Components";
 
 type BlogProps = {
+  entryId?: string;
   content?: {
     title?: string;
     slug: string;
@@ -17,7 +21,8 @@ type BlogProps = {
   };
 };
 
-const Blog = ({ content }: BlogProps) => {
+const Blog = ({ content, entryId }: BlogProps) => {
+  const inspectorProps = useContentfulInspectorMode({ entryId });
   const image = content?.image
     ? parseContentfulContentImage(content.image)
     : null;
@@ -32,7 +37,7 @@ const Blog = ({ content }: BlogProps) => {
 
       <BlogCard>
         {image && (
-          <CoverImageWrapper>
+          <CoverImageWrapper {...inspectorProps({ fieldId: "image" })}>
             <Image
               src={image.src}
               width={image.width || 1200}
@@ -47,12 +52,16 @@ const Blog = ({ content }: BlogProps) => {
           {content?.author && <Components entry={content.author} />}
 
           {content?.title && (
-            <Typography variant="h2" component="h3">
+            <Typography
+              variant="h2"
+              component="h3"
+              {...inspectorProps({ fieldId: "title" })}
+            >
               {content.title}
             </Typography>
           )}
 
-          <BodyText>
+          <BodyText {...inspectorProps({ fieldId: "body" })}>
             <RichText document={content?.body} />
           </BodyText>
         </CardBody>

@@ -4,7 +4,10 @@ import styled from "@emotion/styled";
 import Link from "next/link";
 import type { Entry } from "contentful";
 import Component from "@/lib/Components";
-import { useContentfulLiveUpdates } from "@contentful/live-preview/react";
+import {
+  useContentfulInspectorMode,
+  useContentfulLiveUpdates,
+} from "@contentful/live-preview/react";
 import { TypePageEntrySkeleton } from "@/contentful/types/TypePageEntry";
 
 type PageShellProps = {
@@ -13,6 +16,8 @@ type PageShellProps = {
 
 const PageShell = ({ story }: PageShellProps) => {
   const updatedEntry = useContentfulLiveUpdates(story);
+  const entryId = updatedEntry?.sys?.id;
+  const inspectorProps = useContentfulInspectorMode({ entryId });
   const title = updatedEntry?.fields?.title || "Page title";
   const body = updatedEntry?.fields?.body || [];
   const heroBanner = updatedEntry?.fields.heroBanner;
@@ -22,12 +27,29 @@ const PageShell = ({ story }: PageShellProps) => {
       <Inner>
         <BackLink href="/">← Pages</BackLink>
         <Stack>
-          {title && <h1 className="text-4xl font-bold mb-6">{title}</h1>}
-          {heroBanner && <Component entry={heroBanner} />}
-          {description && <Component entry={description} />}
-          {body?.map((content, index) =>
-            content ? <Component key={index} entry={content} /> : null,
+          {title && (
+            <h1
+              className="text-4xl font-bold mb-6"
+              {...inspectorProps({ fieldId: "title" })}
+            >
+              {title}
+            </h1>
           )}
+          {heroBanner && (
+            <div {...inspectorProps({ fieldId: "heroBanner" })}>
+              <Component entry={heroBanner} />
+            </div>
+          )}
+          {description && (
+            <div {...inspectorProps({ fieldId: "description" })}>
+              <Component entry={description} />
+            </div>
+          )}
+          <div {...inspectorProps({ fieldId: "body" })}>
+            {body?.map((content, index) =>
+              content ? <Component key={index} entry={content} /> : null,
+            )}
+          </div>
         </Stack>
       </Inner>
     </Main>

@@ -2,7 +2,7 @@ import "@/styles/global.scss";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { draftMode } from "next/headers";
-import ExitDraftModeLink from "@/components/common/ExitDraftModeLink";
+// import ExitDraftModeLink from "@/components/common/ExitDraftModeLink";
 import { Inter } from "next/font/google";
 import CustomThemeProvider from "@/theme/ThemeProvider";
 import Header from "@/components/presentation/global/header/Header";
@@ -28,6 +28,7 @@ export const metadata: Metadata = {
 
 async function RootLayout({ children }: { children: React.ReactNode }) {
   const draft = await draftMode();
+  console.log("Draft mode is", draft.isEnabled);
   return (
     <html
       lang="en"
@@ -35,11 +36,11 @@ async function RootLayout({ children }: { children: React.ReactNode }) {
     >
       <body className={inter.className} suppressHydrationWarning>
         <CustomThemeProvider>
-          {draft.isEnabled && (
+          {/* {draft.isEnabled && (
             <p className="bg-orange-200 py-4 px-[6vw]">
               Draft mode is on! <ExitDraftModeLink className="underline" />
             </p>
-          )}
+          )} */}
           <ContentfulPreviewProvider
             locale="en-US"
             enableInspectorMode

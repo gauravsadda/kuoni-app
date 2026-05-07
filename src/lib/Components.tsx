@@ -8,6 +8,7 @@ import presentation from "@/components/presentation";
 
 type PresentationComponentProps = {
   content: unknown;
+  entryId?: string;
   children?: ReactNode;
 };
 
@@ -30,7 +31,11 @@ const Components = ({ entry, children }: ComponentsProps) => {
 
     return (
       <div data-contentful-entry-id={updatedEntry.sys.id}>
-        <Component content={updatedEntry.fields} key={updatedEntry.sys.id}>
+        <Component
+          content={updatedEntry.fields}
+          entryId={updatedEntry.sys.id}
+          key={updatedEntry.sys.id}
+        >
           {children}
         </Component>
       </div>

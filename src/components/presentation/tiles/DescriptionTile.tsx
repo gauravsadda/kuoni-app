@@ -1,21 +1,27 @@
+"use client";
+
 import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
+import { useContentfulInspectorMode } from "@contentful/live-preview/react";
 import RichText from "@/components/common/RichText";
 import type { Document as RichTextDocument } from "@contentful/rich-text-types";
 
 type DescriptionTileProps = {
+  entryId?: string;
   content?: {
     description?: RichTextDocument | null;
   };
 };
 
-const DescriptionTile = ({ content }: DescriptionTileProps) => {
+const DescriptionTile = ({ content, entryId }: DescriptionTileProps) => {
+  const inspectorProps = useContentfulInspectorMode({ entryId });
+
   return (
     <DescriptionContainer>
       <Typography variant="h2" component="h2">
         Description Tile
       </Typography>
-      <Body>
+      <Body {...inspectorProps({ fieldId: "description" })}>
         {content?.description && <RichText document={content.description} />}
       </Body>
     </DescriptionContainer>
