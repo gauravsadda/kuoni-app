@@ -1,5 +1,5 @@
 export type {
-  TypeBlogPost,
-  TypeBlogPostFields,
-  TypeBlogPostSkeleton,
-} from "./TypeBlogPost";
+  TypePageEntry,
+  TypePageEntryFields,
+  TypePageEntrySkeleton,
+} from "./TypePageEntry";

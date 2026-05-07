@@ -1,9 +1,12 @@
+import "@/styles/global.scss";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { draftMode } from "next/headers";
-import ExitDraftModeLink from "./ExitDraftModeLink";
+import ExitDraftModeLink from "@/components/common/ExitDraftModeLink";
 import { Inter } from "next/font/google";
-import "./globals.css";
+import CustomThemeProvider from "@/theme/ThemeProvider";
+import Header from "@/components/presentation/global/header/Header";
+import Footer from "@/components/presentation/global/footer/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,12 +33,18 @@ async function RootLayout({ children }: { children: React.ReactNode }) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className={inter.className} suppressHydrationWarning>
-        {draft.isEnabled && (
-          <p className="bg-orange-200 py-4 px-[6vw]">
-            Draft mode is on! <ExitDraftModeLink className="underline" />
-          </p>
-        )}
-        {children}
+        <CustomThemeProvider>
+          {draft.isEnabled && (
+            <p className="bg-orange-200 py-4 px-[6vw]">
+              Draft mode is on! <ExitDraftModeLink className="underline" />
+            </p>
+          )}
+          <Header content="Kuoni" />
+          {children}
+          <Footer
+            content={`© ${new Date().getFullYear()} Kuoni. All rights reserved.`}
+          />
+        </CustomThemeProvider>
       </body>
     </html>
   );

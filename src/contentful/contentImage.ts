@@ -1,7 +1,4 @@
-import { Asset, AssetLink } from "contentful";
-
-// Our simplified version of an image asset.
-// We don't need all the data that Contentful gives us.
+import { Asset, AssetFields } from "contentful";
 export interface ContentImage {
   src: string;
   alt: string;
@@ -9,10 +6,8 @@ export interface ContentImage {
   height: number;
 }
 
-// A function to transform a Contentful image asset
-// into our own ContentImage object.
 export function parseContentfulContentImage(
-  asset?: Asset<undefined, string> | { sys: AssetLink },
+  asset?: Asset,
 ): ContentImage | null {
   if (!asset) {
     return null;
@@ -22,10 +17,11 @@ export function parseContentfulContentImage(
     return null;
   }
 
+  const fields = asset.fields as AssetFields;
   return {
-    src: asset.fields.file?.url || "",
-    alt: asset.fields.description || "",
-    width: asset.fields.file?.details.image?.width || 0,
-    height: asset.fields.file?.details.image?.height || 0,
+    src: fields.file?.url || "",
+    alt: fields.description || "",
+    width: fields.file?.details.image?.width || 0,
+    height: fields.file?.details.image?.height || 0,
   };
 }
