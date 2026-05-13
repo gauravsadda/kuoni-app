@@ -26,6 +26,7 @@ const PageShell = ({ story }: PageShellProps) => {
     <Main>
       <Inner>
         <BackLink href="/">← Pages</BackLink>
+        {/* <BackLink href="/second-page"> Second Page</BackLink> */}
         <Stack>
           {title && (
             <h1

@@ -6,9 +6,9 @@ export interface ContentImage {
   height: number;
 }
 
-export function parseContentfulContentImage(
+export const parseContentfulContentImage = (
   asset?: Asset,
-): ContentImage | null {
+): ContentImage | null => {
   if (!asset) {
     return null;
   }
@@ -24,4 +24,4 @@ export function parseContentfulContentImage(
     width: fields.file?.details.image?.width || 0,
     height: fields.file?.details.image?.height || 0,
   };
-}
+};

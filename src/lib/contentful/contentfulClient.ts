@@ -1,10 +1,11 @@
 import { createClient } from "contentful";
+import { env } from "@/config/env";
 
 const {
   CONTENTFUL_SPACE_ID,
   CONTENTFUL_ACCESS_TOKEN,
   CONTENTFUL_PREVIEW_ACCESS_TOKEN,
-} = process.env;
+} = env;
 
 export const client = createClient({
   space: CONTENTFUL_SPACE_ID!,

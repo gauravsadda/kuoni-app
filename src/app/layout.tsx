@@ -26,9 +26,9 @@ export const metadata: Metadata = {
   description: "Kuoni App",
 };
 
-async function RootLayout({ children }: { children: React.ReactNode }) {
+const RootLayout = async ({ children }: { children: React.ReactNode }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const draft = await draftMode();
-  console.log("Draft mode is", draft.isEnabled);
   return (
     <html
       lang="en"
@@ -45,7 +45,7 @@ async function RootLayout({ children }: { children: React.ReactNode }) {
             locale="en-US"
             enableInspectorMode
             enableLiveUpdates
-            targetOrigin="https://app.contentful.com"
+            targetOrigin={process.env.NEXT_PUBLIC_CONTENTFUL_TARGET_URL}
           >
             <Header content="Kuoni" />
             {children}
@@ -57,6 +57,6 @@ async function RootLayout({ children }: { children: React.ReactNode }) {
       </body>
     </html>
   );
-}
+};
 
 export default RootLayout;

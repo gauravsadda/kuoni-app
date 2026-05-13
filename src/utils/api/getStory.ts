@@ -1,10 +1,13 @@
 import { client, previewClient } from "@/lib/contentful/contentfulClient";
 import type { EntriesQueries, EntrySkeletonType } from "contentful";
 import { draftMode } from "next/headers";
+import { env } from "@/config/env";
 
 interface Param {
   [key: string]: string | number | boolean | string[] | number[] | boolean[];
 }
+
+const isProduction = process.env.NODE_ENV === "production";
 
 const getClient = async () => {
   try {
@@ -19,7 +22,7 @@ export const getGlobalStory = async <T extends EntrySkeletonType>(
   params: Param,
 ) => {
   try {
-    const langEnv = process.env.LANG_ENV;
+    const langEnv = env.LANG_ENV;
     const contentful = await getClient();
     const res = await contentful.getEntries<T>({
       ...params,
@@ -28,7 +31,9 @@ export const getGlobalStory = async <T extends EntrySkeletonType>(
 
     return res.items;
   } catch (e) {
-    console.error(e);
+    if (!isProduction) {
+      console.error("Contentful fetch error:", e);
+    }
   }
 };
 
@@ -37,7 +42,7 @@ export const getStory = async <T extends EntrySkeletonType>(
   params: Param = {},
 ) => {
   try {
-    const langEnv = process.env.LANG_ENV;
+    const langEnv = env.LANG_ENV;
     const contentful = await getClient();
     const res = await contentful.getEntries<T>({
       ...params,
@@ -46,7 +51,9 @@ export const getStory = async <T extends EntrySkeletonType>(
     } as EntriesQueries<T, undefined>);
     return res.items[0];
   } catch (e) {
-    console.error(e);
+    if (!isProduction) {
+      console.error("Contentful fetch error:", e);
+    }
   }
 };
 
@@ -54,7 +61,7 @@ export const getStories = async <T extends EntrySkeletonType>(
   params: Param,
 ) => {
   try {
-    const langEnv = process.env.LANG_ENV;
+    const langEnv = env.LANG_ENV;
     const contentful = await getClient();
     const res = await contentful.getEntries<T>({
       ...params,
@@ -63,6 +70,8 @@ export const getStories = async <T extends EntrySkeletonType>(
 
     return res.items;
   } catch (e) {
-    console.error(e);
+    if (!isProduction) {
+      console.error("Contentful fetch error:", e);
+    }
   }
 };

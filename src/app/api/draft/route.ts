@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 
 const { CONTENTFUL_PREVIEW_SECRET } = process.env;
 
-export async function GET(request: Request) {
+export const GET = async (request: Request) => {
   const { searchParams } = new URL(request.url);
   if (searchParams.get("previewSecret") !== CONTENTFUL_PREVIEW_SECRET) {
     return new Response("Invalid token", { status: 401 });
@@ -30,4 +30,4 @@ export async function GET(request: Request) {
     target.startsWith("/") && !target.startsWith("//") ? target : "/";
 
   redirect(safeTarget);
-}
+};

@@ -12,7 +12,7 @@ interface PageProps {
   params: Promise<Params>;
 }
 
-export async function generateStaticParams(): Promise<Params[]> {
+export const generateStaticParams = async (): Promise<Params[]> => {
   const stories = await getStories<TypePageEntrySkeleton>({
     content_type: "page",
     include: 2,
@@ -22,11 +22,11 @@ export async function generateStaticParams(): Promise<Params[]> {
   return (
     stories?.map((story) => ({ slug: story.fields.slug.split("/") })) ?? []
   );
-}
+};
 
-export async function generateMetadata({
+export const generateMetadata = async ({
   params,
-}: PageProps): Promise<Metadata> {
+}: PageProps): Promise<Metadata> => {
   const { slug } = await params;
   const story = await getStory<TypePageEntrySkeleton>(slug.join("/"), {
     include: 2,
@@ -40,9 +40,9 @@ export async function generateMetadata({
   return {
     title: story?.fields?.title || "Page title",
   };
-}
+};
 
-async function Page({ params }: PageProps) {
+const Page = async ({ params }: PageProps) => {
   const { slug } = await params;
 
   const story = await getStory<TypePageEntrySkeleton>(slug.join("/"), {
@@ -55,6 +55,6 @@ async function Page({ params }: PageProps) {
   }
 
   return <PageShell story={story} />;
-}
+};
 
 export default Page;

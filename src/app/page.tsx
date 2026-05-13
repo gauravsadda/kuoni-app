@@ -2,7 +2,7 @@ import { getStories } from "@/utils/api/getStory";
 import type { TypePageEntrySkeleton } from "@/contentful/types";
 import Link from "next/link";
 
-async function Home() {
+const Home = async () => {
   const stories = await getStories<TypePageEntrySkeleton>({
     content_type: "page",
     include: 2,
@@ -35,6 +35,6 @@ async function Home() {
       </div>
     </main>
   );
-}
+};
 
 export default Home;

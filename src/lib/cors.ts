@@ -1,6 +1,10 @@
 import type { NextRequest } from "next/server";
 
-const allowedOrigins = ["https://localhost:3000", "http://localhost:3003"];
+const getAllowedOrigins = (): string[] => {
+  const env = process.env.ALLOWED_ORIGINS || "http://localhost:3000";
+  return env.split(",").map((o) => o.trim());
+};
+const allowedOrigins = getAllowedOrigins();
 
 type RouteHandler<TContext = unknown> = (
   request: NextRequest,
@@ -21,6 +25,8 @@ const cors =
 
     if (allowedOrigins.includes(origin)) {
       headers["Access-Control-Allow-Origin"] = origin;
+      headers["Access-Control-Allow-Credentials"] = "true";
+      headers["Access-Control-Max-Age"] = "86400";
     }
 
     if (request.method === "OPTIONS") {
