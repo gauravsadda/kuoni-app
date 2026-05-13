@@ -1,4 +1,5 @@
 import breakpoints from "./breakpoints";
+import type { ThemeOptions } from "@mui/material/styles";
 
 const MuiContainer = {
   styleOverrides: {
@@ -31,6 +32,6 @@ const MuiContainer = {
       },
     },
   },
-};
+} satisfies NonNullable<ThemeOptions["components"]>["MuiContainer"];
 
 export default MuiContainer;

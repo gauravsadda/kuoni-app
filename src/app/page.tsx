@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { getStories } from "@/utils/api/getStory";
 import type { TypePageSkeleton } from "@/contentful/types";
 import Link from "next/link";
+import { Style } from "@mui/icons-material";
+import StyleGuide from "@/components/presentation/StyleGuide";
+import { Container } from "@mui/material";
+import SectionWrapper from "@/components/presentation/SectionWrapper";
 
 // Home metadata is static by design — this route lists all Contentful
 // pages and isn't backed by a single Contentful entry. If marketing
@@ -30,8 +34,8 @@ const Home = async () => {
   }
 
   return (
-    <main className="home-main">
-      <div className="home-inner">
+    <main>
+      <SectionWrapper>
         <p className="home-subtitle">Contentful</p>
         <h1 className="home-title">My Pages</h1>
         <ul className="home-list">
@@ -44,7 +48,8 @@ const Home = async () => {
             </li>
           ))}
         </ul>
-      </div>
+      </SectionWrapper>
+      <StyleGuide />
     </main>
   );
 };

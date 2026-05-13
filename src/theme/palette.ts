@@ -5,7 +5,7 @@ const palette = {
     main: colors.palette.brown,
   },
   secondary: {
-    main: colors.palette.white,
+    main: colors.palette.golden,
   },
 };
 

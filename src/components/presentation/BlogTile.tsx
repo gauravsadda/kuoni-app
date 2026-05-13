@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "@emotion/styled";
-import { Typography } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import { Asset, Entry, EntrySkeletonType } from "contentful";
 import { useContentfulInspectorMode } from "@contentful/live-preview/react";
 import RichText from "@/components/common/RichText";
@@ -21,7 +21,7 @@ type BlogProps = {
   };
 };
 
-const Blog = ({ content, entryId }: BlogProps) => {
+const BlogTile = ({ content, entryId }: BlogProps) => {
   const inspectorProps = useContentfulInspectorMode({ entryId });
   const image = content?.image
     ? parseContentfulContentImage(content.image)
@@ -34,7 +34,6 @@ const Blog = ({ content, entryId }: BlogProps) => {
           Blogs
         </Typography>
       </SectionLabel>
-
       <BlogCard>
         {image && (
           <CoverImageWrapper {...inspectorProps({ fieldId: "image" })}>
@@ -70,7 +69,7 @@ const Blog = ({ content, entryId }: BlogProps) => {
   );
 };
 
-export default Blog;
+export default BlogTile;
 
 const BlogSection = styled.section`
   ${({ theme }) => `
