@@ -1,141 +1,174 @@
 import colors from "./colors";
-import breakpoints from "./breakpoints";
+import type { ThemeOptions } from "@mui/material/styles";
 
 const fontFamilyAthelas = "'Athelas', 'sans-serif'";
 const fontFamilyAthelasBold = "'athelasbold', 'sans-serif'";
 const fontFamilyGotham = "'gothambook', 'sans-serif'";
 
-const typography = {
-  htmlFontSize: 16,
-  fontFamily: fontFamilyGotham,
-  fontSize: 16,
-  fontWeightLight: 300,
-  fontWeightRegular: 400,
-  fontWeightMedium: 500,
-  fontWeightBold: 700,
-  h1: {
-    fontFamily: fontFamilyAthelasBold,
-    fontSize: "28px",
-    lineHeight: "normal",
-    color: colors.palette.darkGrey,
-    textTransform: "uppercase",
+const MuiTypography = {
+  styleOverrides: {
+    root: {
+      color: colors.palette.black,
+      fontFamily: fontFamilyGotham,
+    },
   },
-  h2: {
-    fontFamily: fontFamilyAthelas,
-    fontSize: "22px",
-    lineHeight: "33px",
-    color: colors.palette.darkGrey,
-    textTransform: "uppercase",
-    letterSpacing: "2px",
-
-    [`@media (max-width:${breakpoints?.values?.md}px)`]: {
-      fontSize: "20px",
-      lineHeight: "30px",
-      letterSpacing: "1px",
+  variants: [
+    // ── DISPLAY h1–h4 → Athelas Bold (serif, impactful) ───
+    {
+      props: { variant: "h1" },
+      style: {
+        fontFamily: fontFamilyAthelasBold,
+        fontSize: "clamp(40px, 5vw, 72px)",
+        fontWeight: 700,
+        lineHeight: 1.1,
+        letterSpacing: "-0.02em",
+        color: colors.palette.black,
+      },
+    },
+    {
+      props: { variant: "h2" },
+      style: {
+        fontFamily: fontFamilyAthelasBold,
+        fontSize: "clamp(32px, 4vw, 56px)",
+        fontWeight: 700,
+        lineHeight: 1.15,
+        letterSpacing: "-0.015em",
+        color: colors.palette.black,
+      },
+    },
+    {
+      props: { variant: "h3" },
+      style: {
+        fontFamily: fontFamilyAthelasBold,
+        fontSize: "clamp(26px, 3vw, 40px)",
+        fontWeight: 700,
+        lineHeight: 1.2,
+        letterSpacing: "-0.01em",
+        color: colors.palette.black,
+      },
+    },
+    {
+      props: { variant: "h4" },
+      style: {
+        fontFamily: fontFamilyAthelasBold,
+        fontSize: "clamp(22px, 2.5vw, 32px)",
+        fontWeight: 700,
+        lineHeight: 1.25,
+        letterSpacing: "-0.005em",
+        color: colors.palette.black,
+      },
     },
 
-    [`@media (max-width:${breakpoints?.values?.lg}px)`]: {
-      fontSize: "18px",
-      lineHeight: "26px",
+    // ── SUB-DISPLAY h5–h6 → Athelas Regular (lighter serif) ──
+    {
+      props: { variant: "h5" },
+      style: {
+        fontFamily: fontFamilyAthelas,
+        fontSize: "clamp(18px, 2vw, 24px)",
+        fontWeight: 400,
+        lineHeight: 1.3,
+        letterSpacing: "0",
+        color: colors.palette.black,
+      },
     },
-  },
-  h3: {
-    fontFamily: fontFamilyAthelas,
-    fontSize: "22px",
-    lineHeight: "normal",
-    color: colors.palette.darkGrey,
-    textTransform: "uppercase",
-    letterSpacing: "8px",
+    {
+      props: { variant: "h6" },
+      style: {
+        fontFamily: fontFamilyAthelas,
+        fontSize: "clamp(16px, 1.5vw, 20px)",
+        fontWeight: 400,
+        lineHeight: 1.35,
+        letterSpacing: "0.01em",
+        color: colors.palette.black,
+      },
+    },
 
-    [`@media (max-width:${breakpoints?.values?.xxl}px)`]: {
-      fontSize: "20px",
-      lineHeight: "28px",
+    // ── SUBTITLE → Gotham (UI sans) ───────────────────────
+    {
+      props: { variant: "subtitle1" },
+      style: {
+        fontFamily: fontFamilyGotham,
+        fontSize: "18px",
+        fontWeight: 400,
+        lineHeight: 1.5,
+        letterSpacing: "0.01em",
+        color: colors.palette.darkGrey,
+      },
+    },
+    {
+      props: { variant: "subtitle2" },
+      style: {
+        fontFamily: fontFamilyGotham,
+        fontSize: "13px",
+        fontWeight: 400,
+        lineHeight: 1.5,
+        letterSpacing: "0.12em",
+        textTransform: "uppercase" as const,
+        color: colors.palette.lightGrey,
+      },
     },
 
-    [`@media (max-width:${breakpoints?.values?.lg}px)`]: {
-      fontSize: "18px",
-      lineHeight: "26px",
+    // ── BODY → Gotham ─────────────────────────────────────
+    {
+      props: { variant: "body1" },
+      style: {
+        fontFamily: fontFamilyGotham,
+        fontSize: "16px",
+        fontWeight: 400,
+        lineHeight: 1.75,
+        letterSpacing: "0.01em",
+        color: colors.palette.darkGrey,
+      },
+    },
+    {
+      props: { variant: "body2" },
+      style: {
+        fontFamily: fontFamilyGotham,
+        fontSize: "14px",
+        fontWeight: 400,
+        lineHeight: 1.65,
+        letterSpacing: "0.01em",
+        color: colors.palette.darkGrey,
+      },
     },
 
-    [`@media (max-width:${breakpoints?.values?.sm}px)`]: {
-      fontSize: "15px",
-      lineHeight: "20px",
-      letterSpacing: "3px",
+    // ── UTILITY → Gotham ──────────────────────────────────
+    {
+      props: { variant: "caption" },
+      style: {
+        fontFamily: fontFamilyGotham,
+        fontSize: "12px",
+        fontWeight: 400,
+        lineHeight: 1.5,
+        letterSpacing: "0.04em",
+        color: colors.palette.lightGrey,
+      },
     },
-  },
-  h4: {
-    fontFamily: fontFamilyAthelas,
-    fontSize: "22px",
-    lineHeight: "24px",
-    color: colors.palette.darkGrey,
-    textTransform: "uppercase",
-    letterSpacing: "2px",
-    [`@media (max-width:${breakpoints?.values?.sm}px)`]: {
-      fontSize: "18px",
-      lineHeight: "normal",
+    {
+      props: { variant: "overline" },
+      style: {
+        fontFamily: fontFamilyGotham,
+        fontSize: "11px",
+        fontWeight: 400,
+        lineHeight: 1.5,
+        letterSpacing: "0.15em",
+        textTransform: "uppercase" as const,
+        color: colors.palette.lightGrey,
+      },
     },
-  },
-  h5: {
-    fontFamily: fontFamilyAthelas,
-    fontWeight: 400,
-    fontSize: "18px",
-    lineHeight: 1.334,
-    color: colors.palette.darkGrey,
-    textTransform: "uppercase",
-    letterSpacing: "2px",
-    [`@media (max-width:${breakpoints?.values?.sm}px)`]: {
-      fontSize: "16px",
-      lineHeight: "normal",
+    {
+      props: { variant: "button" },
+      style: {
+        fontFamily: fontFamilyGotham,
+        fontSize: "13px",
+        fontWeight: 400,
+        lineHeight: 1,
+        letterSpacing: "0.12em",
+        textTransform: "uppercase" as const,
+        color: colors.palette.darkGrey,
+      },
     },
-  },
-  h6: {
-    fontFamily: fontFamilyAthelas,
-    fontWeight: 400,
-    fontSize: "15px",
-    lineHeight: 1.6,
-    color: colors.palette.darkGrey,
-    letterSpacing: "2px",
-    textTransform: "uppercase",
-  },
-  body1: {
-    fontFamily: fontFamilyGotham,
-    fontWeight: 400,
-    fontSize: ".9375rem",
-    lineHeight: "25px",
-    color: colors.palette.darkGrey,
-    [`@media (max-width:${breakpoints?.values?.sm}px)`]: {
-      fontSize: "14px",
-      lineHeight: "20px",
-    },
-  },
-  body2: {
-    fontFamily: fontFamilyGotham,
-    fontWeight: 400,
-    fontSize: ".9375rem",
-    lineHeight: "25px",
-    color: colors.palette.darkGrey,
-    [`@media (max-width:${breakpoints?.values?.sm}px)`]: {
-      fontSize: "14px",
-      lineHeight: "20px",
-    },
-  },
-  body3: {
-    fontFamily: fontFamilyGotham,
-    fontWeight: 400,
-    fontSize: ".9375rem",
-    lineHeight: "25px",
-    color: colors.palette.lightGrey,
-    [`@media (max-width:${breakpoints?.values?.sm}px)`]: {
-      fontSize: "14px",
-      lineHeight: "20px",
-    },
-  },
-  button: {
-    fontFamily: fontFamilyGotham,
-    fontWeight: 400,
-    fontSize: "0.875rem",
-    lineHeight: 1.75,
-  },
-};
+  ],
+} satisfies NonNullable<ThemeOptions["components"]>["MuiTypography"];
 
-export default typography;
+export default MuiTypography;

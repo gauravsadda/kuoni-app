@@ -28,6 +28,13 @@ const colorsData = {
     golden: "#A5916D",
     gold: "#A5916D",
     lightGreyTwo: "#484E5D",
+    error: "#D32F2F",
+    errorDark: "#B71C1C",
+    success: "#2e7d32",
+    successDark: "#1b5e20",
+    info: "#0288D1",
+    warning: "#E65100",
+    transparent: "#ffffff00",
   },
 };
 

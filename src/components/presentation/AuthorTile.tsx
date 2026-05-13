@@ -15,7 +15,7 @@ type AuthorProps = {
   };
 };
 
-const Author = ({ content, entryId }: AuthorProps) => {
+const AuthorTile = ({ content, entryId }: AuthorProps) => {
   const inspectorProps = useContentfulInspectorMode({ entryId });
   const image = content?.image
     ? parseContentfulContentImage(content?.image)
@@ -52,7 +52,7 @@ const Author = ({ content, entryId }: AuthorProps) => {
   );
 };
 
-export default Author;
+export default AuthorTile;
 
 const AuthorRow = styled.div`
   ${({ theme }) => `

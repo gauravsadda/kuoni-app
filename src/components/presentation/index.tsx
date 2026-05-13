@@ -1,15 +1,15 @@
 import DescriptionTile from "@/components/presentation/tiles/DescriptionTile";
 import TileContainer from "@/components/presentation/tiles/index";
 import HeroBanner from "@/components/presentation/global/HeroBanner";
-import Blog from "@/components/presentation/Blog";
-import Author from "@/components/presentation/Author";
+import BlogTile from "@/components/presentation/BlogTile";
+import AuthorTile from "@/components/presentation/AuthorTile";
 
 const Components = {
   description: DescriptionTile,
   "tile-container": TileContainer,
   heroBanner: HeroBanner,
-  blogPost: Blog,
-  author: Author,
+  blogPost: BlogTile,
+  author: AuthorTile,
 };
 
 export default Components;

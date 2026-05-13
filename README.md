@@ -34,3 +34,11 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Updates
+
+### 2026-05-12
+
+- Fixed MUI theme typing issue by wiring typography overrides through `components.MuiTypography` instead of top-level `typography` options.
+- Added strict component override typing with `satisfies NonNullable<ThemeOptions["components"]>["MuiX"]` in theme files (`button`, `container`, `link`, `typography`) to prevent variant prop widening.
+- Verified theme-related TypeScript errors are resolved for the updated theme files.

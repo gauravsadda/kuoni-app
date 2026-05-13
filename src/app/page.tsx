@@ -1,6 +1,10 @@
 import { getStories } from "@/utils/api/getStory";
 import type { TypePageEntrySkeleton } from "@/contentful/types";
 import Link from "next/link";
+import { Style } from "@mui/icons-material";
+import StyleGuide from "@/components/presentation/StyleGuide";
+import { Container } from "@mui/material";
+import SectionWrapper from "@/components/presentation/SectionWrapper";
 
 async function Home() {
   const stories = await getStories<TypePageEntrySkeleton>({
@@ -18,21 +22,22 @@ async function Home() {
   }
 
   return (
-    <main className="home-main">
-      <div className="home-inner">
-        <p className="home-subtitle">Contentful</p>
-        <h1 className="home-title">My Pages</h1>
-        <ul className="home-list">
-          {stories.map((story) => (
-            <li key={story?.fields?.slug}>
-              <Link href={`/${story?.fields?.slug}`} className="home-card">
-                <span className="home-card-label">Page</span>
-                <h2 className="home-card-title">{story?.fields?.title}</h2>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
+    <main>
+      <SectionWrapper>
+          <p className="home-subtitle">Contentful</p>
+          <h1 className="home-title">My Pages</h1>
+          <ul className="home-list">
+            {stories.map((story) => (
+              <li key={story?.fields?.slug}>
+                <Link href={`/${story?.fields?.slug}`} className="home-card">
+                  <span className="home-card-label">Page</span>
+                  <h2 className="home-card-title">{story?.fields?.title}</h2>
+                </Link>
+              </li>
+            ))}
+          </ul>
+      </SectionWrapper>
+      <StyleGuide />
     </main>
   );
 }

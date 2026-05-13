@@ -9,6 +9,7 @@ import {
   useContentfulLiveUpdates,
 } from "@contentful/live-preview/react";
 import { TypePageEntrySkeleton } from "@/contentful/types/TypePageEntry";
+import { Stack } from "@mui/material";
 
 type PageShellProps = {
   story: Entry<TypePageEntrySkeleton, "WITHOUT_UNRESOLVABLE_LINKS">;
@@ -26,7 +27,7 @@ const PageShell = ({ story }: PageShellProps) => {
     <Main>
       <Inner>
         <BackLink href="/">← Pages</BackLink>
-        <Stack>
+        <Stack spacing={4}>
           {title && (
             <h1
               className="text-4xl font-bold mb-6"
@@ -62,7 +63,7 @@ const Main = styled.main`
   ${({ theme }) => `
     background: ${theme.colors.palette.cream};
     min-height: 100vh;
-    padding: ${theme.spacing(4)} ${theme.spacing(2)};
+    padding: ${theme.spacing(1.6)} ${theme.spacing(2)};
 
     @media (min-width: ${theme.breakpoints.values.md}px) {
       padding: ${theme.spacing(6)} ${theme.spacing(4)};
@@ -89,13 +90,5 @@ const BackLink = styled(Link)`
     &:hover {
       color: ${theme.colors.palette.black};
     }
-  `}
-`;
-
-const Stack = styled.div`
-  ${({ theme }) => `
-    display: flex;
-    flex-direction: column;
-    gap: ${theme.spacing(4)};
   `}
 `;
