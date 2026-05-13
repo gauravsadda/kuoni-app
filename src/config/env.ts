@@ -35,4 +35,7 @@ export const env = {
   NEXT_PUBLIC_CONTENTFUL_TARGET_URL:
     process.env.NEXT_PUBLIC_CONTENTFUL_TARGET_URL ||
     "https://app.contentful.com",
+
+  NEXT_PUBLIC_SITE_URL:
+    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
 };

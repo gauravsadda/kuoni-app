@@ -1,9 +1,17 @@
+import type { Metadata } from "next";
 import { getStories } from "@/utils/api/getStory";
-import type { TypePageEntrySkeleton } from "@/contentful/types";
+import type { TypePageSkeleton } from "@/contentful/types";
 import Link from "next/link";
 
+export const metadata: Metadata = {
+  title: "Home",
+  description: "Browse pages",
+  alternates: { canonical: "/" },
+  openGraph: { title: "Home", url: "/" },
+};
+
 const Home = async () => {
-  const stories = await getStories<TypePageEntrySkeleton>({
+  const stories = await getStories<TypePageSkeleton>({
     content_type: "page",
     include: 2,
     order: ["fields.title"],

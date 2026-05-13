@@ -7,7 +7,7 @@ const ContentSecurityPolicy = `
   img-src 'self' data: blob: https://images.ctfassets.net;
   font-src 'self' data:;
   connect-src 'self' https://cdn.contentful.com https://preview.contentful.com;
-  frame-ancestors 'none';
+  frame-ancestors 'self' https://app.contentful.com;
   base-uri 'self';
   form-action 'self';
 `;
@@ -32,10 +32,6 @@ const nextConfig: NextConfig = {
           {
             key: "Content-Security-Policy",
             value: ContentSecurityPolicy.replace(/\n/g, ""),
-          },
-          {
-            key: "X-Frame-Options",
-            value: "DENY",
           },
           {
             key: "X-Content-Type-Options",

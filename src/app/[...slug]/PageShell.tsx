@@ -8,10 +8,10 @@ import {
   useContentfulInspectorMode,
   useContentfulLiveUpdates,
 } from "@contentful/live-preview/react";
-import { TypePageEntrySkeleton } from "@/contentful/types/TypePageEntry";
+import { TypePageSkeleton } from "@/contentful/types/TypePage";
 
 type PageShellProps = {
-  story: Entry<TypePageEntrySkeleton, "WITHOUT_UNRESOLVABLE_LINKS">;
+  story: Entry<TypePageSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">;
 };
 
 const PageShell = ({ story }: PageShellProps) => {

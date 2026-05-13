@@ -8,6 +8,7 @@ import CustomThemeProvider from "@/theme/ThemeProvider";
 import Header from "@/components/presentation/global/header/Header";
 import Footer from "@/components/presentation/global/footer/Footer";
 import { ContentfulPreviewProvider } from "@/components/common/ContentfulPreviewProvider";
+import { env } from "@/config/env";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,8 +23,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Kuoni App",
+  metadataBase: new URL(env.NEXT_PUBLIC_SITE_URL),
+  title: {
+    default: "Kuoni App",
+    template: "%s | Kuoni App",
+  },
   description: "Kuoni App",
+  openGraph: {
+    siteName: "Kuoni App",
+    type: "website",
+    locale: "en_US",
+  },
 };
 
 const RootLayout = async ({ children }: { children: React.ReactNode }) => {
