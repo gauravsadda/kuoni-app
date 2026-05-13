@@ -1,8 +1,7 @@
-import { Metadata, ResolvingMetadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 import { getStories, getStory } from "@/utils/api/getStory";
-import type { TypePageSkeleton, TypeSeoSkeleton } from "@/contentful/types";
-import type { Entry } from "contentful";
+import type { TypePageSkeleton } from "@/contentful/types";
 import { buildMetadataFromSeo } from "@/utils/seo/buildMetadata";
 import PageShell from "./PageShell";
 
@@ -14,22 +13,17 @@ interface PageProps {
   params: Promise<Params>;
 }
 
-type PageFieldsWithSeo = {
-  title?: string;
-  slug: string;
-  seo?: Entry<TypeSeoSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">;
-};
+const PAGE_QUERY = { include: 2, content_type: "page" } as const;
 
 export const generateStaticParams = async (): Promise<Params[]> => {
   const stories = await getStories<TypePageSkeleton>({
-    content_type: "page",
-    include: 2,
+    ...PAGE_QUERY,
     order: ["fields.title"],
   });
 
   return (
     stories?.map((story) => ({
-      slug: (story.fields as PageFieldsWithSeo).slug.split("/"),
+      slug: story.fields.slug.split("/"),
     })) ?? []
   );
 };
@@ -39,21 +33,17 @@ export const generateMetadata = async (
   parent: ResolvingMetadata,
 ): Promise<Metadata> => {
   const { slug } = await params;
-  const story = await getStory<TypePageSkeleton>(slug.join("/"), {
-    include: 2,
-    content_type: "page",
-  });
+  const story = await getStory<TypePageSkeleton>(slug.join("/"), PAGE_QUERY);
 
   if (!story) {
     return notFound();
   }
 
-  const fields = story.fields as PageFieldsWithSeo;
   const parentMeta = await parent;
 
   return buildMetadataFromSeo({
-    seo: fields.seo,
-    fallbackTitle: fields.title || "Page title",
+    seo: story.fields.seo,
+    fallbackTitle: story.fields.title || "Page title",
     path: `/${slug.join("/")}`,
     parentOpenGraph: parentMeta.openGraph,
   });
@@ -62,10 +52,7 @@ export const generateMetadata = async (
 const Page = async ({ params }: PageProps) => {
   const { slug } = await params;
 
-  const story = await getStory<TypePageSkeleton>(slug.join("/"), {
-    include: 2,
-    content_type: "page",
-  });
+  const story = await getStory<TypePageSkeleton>(slug.join("/"), PAGE_QUERY);
 
   if (!story) {
     return notFound();

@@ -16,6 +16,7 @@ interface BuildMetadataInput {
 
 const ensureAbsoluteUrl = (url: string): string => {
   if (/^https?:\/\//i.test(url)) return url;
+  if (url.startsWith("//")) return `https:${url}`;
   return `${env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "")}${
     url.startsWith("/") ? url : `/${url}`
   }`;
@@ -53,11 +54,9 @@ export const buildMetadataFromSeo = ({
       ? {
           images: [
             {
-              url: ensureAbsoluteUrl(
-                ogImage.src.startsWith("//")
-                  ? `https:${ogImage.src}`
-                  : ogImage.src,
-              ),
+              url: ensureAbsoluteUrl(ogImage.src),
+              // `||` collapses both `0` and `""` to undefined — intentional:
+              // zero-px images and empty alt aren't useful to crawlers.
               width: ogImage.width || undefined,
               height: ogImage.height || undefined,
               alt: ogImage.alt || undefined,

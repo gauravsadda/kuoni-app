@@ -3,6 +3,10 @@ import { getStories } from "@/utils/api/getStory";
 import type { TypePageSkeleton } from "@/contentful/types";
 import Link from "next/link";
 
+// Home metadata is static by design — this route lists all Contentful
+// pages and isn't backed by a single Contentful entry. If marketing
+// later wants to edit homepage SEO, create a singleton entry and
+// route this through `buildMetadataFromSeo` like `[...slug]/page.tsx`.
 export const metadata: Metadata = {
   title: "Home",
   description: "Browse pages",

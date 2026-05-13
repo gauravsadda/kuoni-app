@@ -9,7 +9,6 @@
     "lint": "eslint",
     "types:contentful": "export $(cat .env.local | awk '!/^\\s*#/' | awk '!/^\\s*$/'); cf-content-types-generator --spaceId $CONTENTFUL_SPACE_ID --token $CONTENTFUL_MANAGEMENT_TOKEN -o src/contentful/types -X && prettier --write src/contentful/types",
     "migrate": "export $(cat .env.local | awk '!/^\\s*#/' | awk '!/^\\s*$/'); contentful-migration --space-id $CONTENTFUL_SPACE_ID --access-token $CONTENTFUL_MANAGEMENT_TOKEN --environment-id ${CONTENTFUL_ENVIRONMENT_ID:-master}",
-    "migrate:seo": "npm run migrate -- migrations/0001-create-seo-content-model.js",
     "test": "jest",
     "test:coverage": "jest --coverage"
   },

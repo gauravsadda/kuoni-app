@@ -25,12 +25,12 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_SITE_URL),
   title: {
-    default: "Kuoni App",
-    template: "%s | Kuoni App",
+    default: env.NEXT_PUBLIC_SITE_NAME,
+    template: `%s | ${env.NEXT_PUBLIC_SITE_NAME}`,
   },
-  description: "Kuoni App",
+  description: env.NEXT_PUBLIC_SITE_DESCRIPTION,
   openGraph: {
-    siteName: "Kuoni App",
+    siteName: env.NEXT_PUBLIC_SITE_NAME,
     type: "website",
     locale: "en_US",
   },

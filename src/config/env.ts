@@ -6,8 +6,11 @@ const requiredEnvVariables = [
   "CONTENTFUL_PREVIEW_SECRET",
 ];
 
+if (process.env.NODE_ENV === "production") {
+  requiredEnvVariables.push("NEXT_PUBLIC_SITE_URL");
+}
+
 requiredEnvVariables.forEach((key) => {
-  //   console.log(`Checking environment variable: ${key}`, process.env[key] ? "✅ Found" : "❌ Missing");
   if (!process.env[key]) {
     throw new Error(`❌ Missing required environment variable: ${key}`);
   }
@@ -38,4 +41,10 @@ export const env = {
 
   NEXT_PUBLIC_SITE_URL:
     process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+
+  NEXT_PUBLIC_SITE_NAME: process.env.NEXT_PUBLIC_SITE_NAME || "Kuoni App",
+
+  NEXT_PUBLIC_SITE_DESCRIPTION:
+    process.env.NEXT_PUBLIC_SITE_DESCRIPTION ||
+    "Luxury travel experiences curated by Kuoni.",
 };
